@@ -1,0 +1,75 @@
+.title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+input{
+    text-align: center;
+}
+table.attributeTable {
+    border: 1px solid #000000;
+    background-color: #EED0C8;
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+  }
+  table.attributeTable td, table.attributeTable th {
+    border: 1px solid #AAAAAA;
+    padding: 3px 2px;
+  }
+  table.attributeTable tbody td {
+    font-size: 13px;
+  }
+  table.attributeTable thead {
+    background: #A4362A;
+    border-bottom: 2px solid #444444;
+  }
+  table.attributeTable thead th {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    border-left: 2px solid #D0E4F5;
+  }
+  table.attributeTable thead th:first-child {
+    border-left: none;
+  }
+
+  .invalid {
+    color: red;
+  }
+
+  .valid {
+    color: green;
+  }
+
+  /* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.talents {
+  columns: 4 8em;
+  list-style-type: none;
+}

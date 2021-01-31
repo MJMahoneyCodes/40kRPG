@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wrath and Glory Character Creator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="title">Wrath and Glory Character Creator</div> 
+Send any feedback to ziggurattt at gmail .com
+<br>
+<br>
+
+<div class="title">1. Tier Level</div>
+<form>
+    <input type="radio" id="Tier 1" name="tier" value="Tier 1" onchange="setMaxExperience(1)">
+    <label for="Tier 1">Tier 1</label><br>
+    <input type="radio" id="Tier 2" name="tier" value="Tier 2" onchange="setMaxExperience(2)">
+    <label for="Tier 2">Tier 2</label><br>
+    <input type="radio" id="Tier 3" name="tier" value="Tier 3" onchange="setMaxExperience(3)">
+    <label for="Tier 3">Tier 3</label><br>
+    <input type="radio" id="Tier 4" name="tier" value="Tier 4" onchange="setMaxExperience(4)">
+    <label for="Tier 4">Tier 4</label>
+</form> 
+<br>
+<div class="title">Experience:</div>
+<div class="title" id="maxExperience">100 maximum experience</div>
+<div class="title" id="experienceUsed">0 points used</div>
+
+<br>
+<label for="species" class="title">2. Choose a species:</label>
+  <select name="species" id="species" onchange="setAttributes(this.options[this.selectedIndex].value)">
+    <option value="human">Human</option>
+    <option value="adeptus">Adeptus Astartes</option>
+    <option value="primaris">Primaris Astartes</option>
+    <option value="aeldari">Aeldari</option>
+    <option value="ork">Ork</option>
+  </select> 
+
+<div class="title">Keywords:</div>
+<input id="keywordInput" type="text" placeholder="Enter keyword">
+    <button id="addKeyword">Add</button>
+    <ul id="keywords">
+        <!--<li>Notebook <button class="delete">Delete</button></li>-->
+    </ul>
+<br>
+
+
+
+<br>
+<div class="title">3. Attributes</div>
+<table class="attributeTable">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Strength</th>
+        <th>Toughness</th>
+        <th>Agility</th>
+        <th>Initiative</th>
+        <th>Willpower</th>
+        <th>Intellect</th>
+        <th>Fellowship</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Rating</td>
+        <td><INPUT id="strengthRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('strength')"></td>
+        <td><INPUT id="toughnessRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('toughness')"></td>
+        <td><INPUT id="agilityRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('agility')"></td>
+        <td><INPUT id="initiativeRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('initiative')"></td>
+        <td><INPUT id="willpowerRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('willpower')"></td>
+        <td><INPUT id="intellectRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('intellect')"></td>
+        <td><INPUT id="fellowshipRating" TYPE="text" VALUE="1" SIZE="5" onchange="calculateAttributeTotal('fellowship')"></td>
+    </tr>
+    <tr>
+        <td>Bonus</td>
+        <td><INPUT id="strengthBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('strength')"></td>
+        <td><INPUT id="toughnessBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('toughness')"></td>
+        <td><INPUT id="agilityBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('agility')"></td>
+        <td><INPUT id="initiativeBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('initiative')"></td>
+        <td><INPUT id="willpowerBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('willpower')"></td>
+        <td><INPUT id="intellectBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('intellect')"></td>
+        <td><INPUT id="fellowshipBonus" TYPE="text" VALUE="0" SIZE="5" onchange="calculateAttributeTotal('fellowship')"></td>
+    </tr>
+    <tr>
+        <td>Total</td>
+        <td id="strengthTotal">1</td>
+        <td id="toughnessTotal">1</td>
+        <td id="agilityTotal">1</td>
+        <td id="initiativeTotal">1</td>
+        <td id="willpowerTotal">1</td>
+        <td id="intellectTotal">1</td>
+        <td id="fellowshipTotal">1</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="title">4. Skills</div>
+<div>Tree of Learning: 
+    <div id=treeOfLearning class="valid tooltip">VALID 
+        <span class="tooltiptext">You must have a rating of at least 1 in as many skills as your highest skill rating.</span>
+    </div> 
+</div>
+<table class="attributeTable">
+    <thead>
+    <tr>
+        <th>Skill</th>
+        <th>Base Attribute</th>
+        <th>Base Attribute Value</th>
+        <th>Rating</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>Athletics</td>
+        <td>Strength</td>
+        <td id="athleticsBase">1</td>
+        <td><INPUT id="athleticsRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('athletics')"></td>
+        <td id="athleticsTotal">1</td>
+    </tr>
+    <tr>
+        <td>Awareness</td>
+        <td>Intellect</td>
+        <td id="awarenessBase">1</td>
+        <td><INPUT id="awarenessRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('awareness')"></td>
+        <td id="awarenessTotal">1</td>
+    </tr>
+    <tr>
+        <td>Ballistic Skill</td>
+        <td>Agility</td>
+        <td id="ballisticSkillBase">1</td>
+        <td><INPUT id="ballisticSkillRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('ballisticSkill')"></td>
+        <td id="ballisticSkillTotal">1</td>
+    </tr>
+    <tr>
+        <td>Cunning</td>
+        <td>Fellowship</td>
+        <td id="cunningBase">1</td>
+        <td><INPUT id="cunningRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('cunning')"></td>
+        <td id="cunningTotal">1</td>
+    </tr>
+    <tr>
+        <td>Deception</td>
+        <td>Fellowship</td>
+        <td id="deceptionBase">1</td>
+        <td><INPUT id="deceptionRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('deception')"></td>
+        <td id="deceptionTotal">1</td>
+    </tr>
+    <tr>
+        <td>Insight</td>
+        <td>Fellowship</td>
+        <td id="insightBase">1</td>
+        <td><INPUT id="insightRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('insight')"></td>
+        <td id="insightTotal">1</td>
+    </tr>
+    <tr>
+        <td>Intimidation</td>
+        <td>Willpower</td>
+        <td id="intimidationBase">1</td>
+        <td><INPUT id="intimidationRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('intimidation')"></td>
+        <td id="intimidationTotal">1</td>
+    </tr>
+    <tr>
+        <td>Investigation</td>
+        <td>Intellect</td>
+        <td id="investigationBase">1</td>
+        <td><INPUT id="investigationRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('investigation')"></td>
+        <td id="investigationTotal">1</td>
+    </tr>
+    <tr>
+        <td>Leadership</td>
+        <td>Willpower</td>
+        <td id="leadershipBase">1</td>
+        <td><INPUT id="leadershipRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('leadership')"></td>
+        <td id="leadershipTotal">1</td>
+    </tr>
+    <tr>
+        <td>Medicae</td>
+        <td>Intellect</td>
+        <td id="medicaeBase">1</td>
+        <td><INPUT id="medicaeRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('medicae')"></td>
+        <td id="medicaeTotal">1</td>
+    </tr>
+    <tr>
+        <td>Persuasion</td>
+        <td>Fellowship</td>
+        <td id="persuasionBase">1</td>
+        <td><INPUT id="persuasionRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('persuasion')"></td>
+        <td id="persuasionTotal">1</td>
+    </tr>
+    <tr>
+        <td>Pilot</td>
+        <td>Agility</td>
+        <td id="pilotBase">1</td>
+        <td><INPUT id="pilotRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('pilot')"></td>
+        <td id="pilotTotal">1</td>
+    </tr>
+    <tr>
+        <td>Psychic Mastery</td>
+        <td>Willpower</td>
+        <td id="psychicMasteryBase">1</td>
+        <td><INPUT id="psychicMasteryRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('psychicMastery')"></td>
+        <td id="psychicMasteryTotal">1</td>
+    </tr>
+    <tr>
+        <td>Scholar</td>
+        <td>Intellect</td>
+        <td id="scholarBase">1</td>
+        <td><INPUT id="scholarRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('scholar')"></td>
+        <td id="scholarTotal">1</td>
+    </tr>
+    <tr>
+        <td>Stealth</td>
+        <td>Agility</td>
+        <td id="stealthBase">1</td>
+        <td><INPUT id="stealthRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('stealth')"></td>
+        <td id="stealthTotal">1</td>
+    </tr>
+    <tr>
+        <td>Survival</td>
+        <td>Willpower</td>
+        <td id="survivalBase">1</td>
+        <td><INPUT id="survivalRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('survival')"></td>
+        <td id="survivalTotal">1</td>
+    </tr>
+    <tr>
+        <td>Tech</td>
+        <td>Intellect</td>
+        <td id="techBase">1</td>
+        <td><INPUT id="techRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('tech')"></td>
+        <td id="techTotal">1</td>
+    </tr>
+    <tr>
+        <td>Weapon Skill</td>
+        <td>Initiative</td>
+        <td id="weaponSkillBase">1</td>
+        <td><INPUT id="weaponSkillRating" TYPE="text" VALUE="0" SIZE="5" onchange="calculateSkillTotal('weaponSkill')"></td>
+        <td id="weaponSkillTotal">1</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="title">5. Talents</div>
+<p>NOTE: Currently does not check requirements.</p>
+<ul class="talents" id="talents">
+    <li><label><input type="checkbox" name="acuteSense" value="acuteSense" />Acute Sense</label></li>
+    <li><label><input type="checkbox" name="angelOfDeath" value="angelOfDeath" />Angel of Death</label></li>
+    <li><label><input type="checkbox" name="armourbane" value="armourbane" />Armourbane</label></li>
+    <li><label><input type="checkbox" name="augmetic1" value="augmetic1" />Augmetic 1</label></li>
+    <li><label><input type="checkbox" name="augmetic2" value="augmetic2" />Augmetic 2</label></li>
+    <li><label><input type="checkbox" name="augmetic3" value="augmetic3" />Augmetic 3</label></li>
+    <li><label><input type="checkbox" name="augmetic4" value="augmetic4" />Augmetic 4</label></li>
+    <li><label><input type="checkbox" name="augmetic5" value="augmetic5" />Augmetic 5</label></li>
+    <li><label><input type="checkbox" name="betrayer" value="betrayer" />Betrayer</label></li>
+    <li><label><input type="checkbox" name="berzerker" value="berkerzer" />Berzerker</label></li>
+    <li><label><input type="checkbox" name="binaryChatter" value="binaryChatter" />Binary Chatter</label></li>
+    <li><label><input type="checkbox" name="blindfighter" value="blindfighter" />Blindfighter</label></li>
+    <li><label><input type="checkbox" name="bloodMustFlow" value="bloodMustFlow" />Blood Must Flow</label></li>
+    <li><label><input type="checkbox" name="bombardment" value="bombardment" />Bombardment</label></li>
+    <li><label><input type="checkbox" name="brutalist" value="brutalist" />Brutalist</label></li>
+    <li><label><input type="checkbox" name="chaosFamiliar" value="chaosFamiliar" />Chaos Familiar</label></li>
+    <li><label><input type="checkbox" name="conversationalCogitator" value="conversationalCogitator" />Conversational Cogitator</label></li>
+    <li><label><input type="checkbox" name="counterAttack" value="counterAttack" />Counter Attack</label></li>
+    <li><label><input type="checkbox" name="deadshot" value="deadshot" />Deadshot</label></li>
+    <li><label><input type="checkbox" name="deathOrGlory" value="deathOrGlory" />Death or Glory</label></li>
+    <li><label><input type="checkbox" name="deductive" value="deductive" />Deductive</label></li>
+    <li><label><input type="checkbox" name="devotees" value="devotees" />Devotees</label></li>
+    <li><label><input type="checkbox" name="dieHard" value="dieHard" />Die Hard</label></li>
+    <li><label><input type="checkbox" name="dirtyFighter" value="dirtyFighter" />Dirty Fighter</label></li>
+    <li><label><input type="checkbox" name="disciplineSavant" value="disciplineSavant" />Discipline Savant</label></li>
+    <li><label><input type="checkbox" name="disturbingVoice" value="disturbingVoice" />Disturbing Voice</label></li>
+    <li><label><input type="checkbox" name="dualWield" value="dualWield" />Dual Wield</label></li>
+    <li><label><input type="checkbox" name="dutyUntilDeath" value="dutyUntilDeath" />Duty Until Death</label></li>
+    <li><label><input type="checkbox" name="eliminator" value="eliminator" />Eliminator</label></li>
+    <li><label><input type="checkbox" name="escapeArtist" value="escapeArtist" />Escape Artist</label></li>
+    <li><label><input type="checkbox" name="everVigilant" value="everVigilant" />Ever Vigilant</label></li>
+    <li><label><input type="checkbox" name="favouredByTheWarp" value="favouredByTheWarp" />Favoured By The Warp</label></li>
+    <li><label><input type="checkbox" name="fear" value="fear" />Fear</label></li>
+    <li><label><input type="checkbox" name="fearless" value="fearless" />Fearless</label></li>
+    <li><label><input type="checkbox" name="feelNoPain" value="feelNoPain" />Feel No Pain</label></li>
+    <li><label><input type="checkbox" name="flagellant" value="flagellant" />Flagellant</label></li>
+    <li><label><input type="checkbox" name="frenzy" value="frenzy" />Frenzy</label></li>
+    <li><label><input type="checkbox" name="furiousCharge" value="furiousCharge" />Furious Charge</label></li>
+    <li><label><input type="checkbox" name="gallowsHumour" value="gallowsHumour" />Gallows Humour</label></li>
+    <li><label><input type="checkbox" name="hardy" value="hardy" />Hardy</label></li>
+    <li><label><input type="checkbox" name="hatred" value="hatred" />Hatred</label></li>
+    <li><label><input type="checkbox" name="hiveExplorer" value="hiveExplorer" />Hive Explorer</label></li>
+    <li><label><input type="checkbox" name="jargon" value="jargon" />Jargon</label></li>
+        <input type="radio" id="jargonBS" name="jargon" value="jargonBS">
+        <label for="jargonBS">Ballistic Skill</label><br>
+        <input type="radio" id="jargonMed" name="jargon" value="jargonMed">
+        <label for="jargonMed">Medicae</label><br>
+        <input type="radio" id="jargonPil" name="jargon" value="jargonPil">
+        <label for="jargonPil">Pilot</label><br>
+        <input type="radio" id="jargonSch" name="jargon" value="jargonSch">
+        <label for="jargonSch">Scholar</label>
+        <input type="radio" id="jargonSur" name="jargon" value="jargonSur">
+        <label for="jargonSur">Survival</label><br>
+        <input type="radio" id="jargonTec" name="jargon" value="jargonTec">
+        <label for="jargonTec">Tech</label><br>
+        <input type="radio" id="jargonWS" name="jargon" value="jargonWS">
+        <label for="jargonWS">Weapon Skill</label>
+    <li><label><input type="checkbox" name="legacyOfSorrow" value="legacyOfSorrow" />Legacy Of Sorrow</label></li>
+    <li><label><input type="checkbox" name="letTheGalaxyBurn" value="letTheGalaxyBurn" />Let The Galaxy Burn</label></li>
+    <li><label><input type="checkbox" name="lipReader" value="lipReader" />Lip Reader</label></li>
+    <li><label><input type="checkbox" name="lobotomisedEfficiency" value="lobotomisedEfficiency" />Lobotomised Efficiency</label></li>
+    <li><label><input type="checkbox" name="loremaster" value="loremaster" />Loremaster</label></li>
+    <li><label><input type="checkbox" name="markOfChaos" value="markOfChaos" />Mark Of Chaos</label></li>
+    <li><label><input type="checkbox" name="masteredPaths" value="masteredPaths" />Mastered Paths</label></li>
+    <li><label><input type="checkbox" name="mimicVoice" value="mimicVoice" />Mimic Voice</label></li>
+    <li><label><input type="checkbox" name="mobRule" value="mobRule" />Mob Rule</label></li>
+    <li><label><input type="checkbox" name="moreDakka" value="moreDakka" />More Dakka!</label></li>
+    <li><label><input type="checkbox" name="noblePeer" value="noblePeer" />Noble Peer</label></li>
+    <li><label><input type="checkbox" name="orthopraxy" value="orthopraxy" />Orthopraxy</label></li>
+    <li><label><input type="checkbox" name="paranoid" value="paranoid" />Paranoid</label></li>
+    <li><label><input type="checkbox" name="primarisPerspective" value="primarisPerspective" />Primaris Perspective</label></li>
+    <li><label><input type="checkbox" name="promethiumProficiency" value="promethiumProficiency" />Promethium Proficiency</label></li>
+    <li><label><input type="checkbox" name="riteOfFear" value="riteOfFear" />Rite Of Fear</label></li>
+    <li><label><input type="checkbox" name="riteOfMagnometrics" value="riteOfMagnometrics" />Rite Of Magnometrics</label></li>
+    <li><label><input type="checkbox" name="riteOfPureThought" value="riteOfPureThought" />Rite Of Pure Thought</label></li>
+    <li><label><input type="checkbox" name="scumSavvy" value="scumSavvy" />Scum Savvy</label></li>
+    <li><label><input type="checkbox" name="secretIdentity" value="secretIdentity" />Secret Identity</label></li>
+    <li><label><input type="checkbox" name="sidestep" value="sidestep" />Sidestep</label></li>
+    <li><label><input type="checkbox" name="silent" value="silent" />Silent</label></li>
+    <li><label><input type="checkbox" name="simultaneousStrike" value="simultaneousStrike" />Simultaneous Strike</label></li>
+    <li><label><input type="checkbox" name="smashAttack" value="smashAttack" />Smash Attack</label></li>
+    <li><label><input type="checkbox" name="specialWeaponsTrooper" value="specialWeaponsTrooper" />Special Weapons Trooper</label></li>
+    <ul class="talents">
+        <li><label><input type="checkbox" name="swtShot" value="swtShot" />Combat Shotgun</label></li>
+        <li><label><input type="checkbox" name="swtPlas" value="swtPlas" />Plasma Gun</label></li>
+        <li><label><input type="checkbox" name="swtMelta" value="swtMelta" />Meltagun</label></li>
+        <li><label><input type="checkbox" name="swtLong" value="swtLong" />Long Las</label></li>
+        <li><label><input type="checkbox" name="swtFlamer" value="swtFlamer" />Flamer</label></li>
+        <li><label><input type="checkbox" name="swtGren" value="swtGren" />Grenade Launcher</label></li>
+        <li><label><input type="checkbox" name="swtHSVG" value="swtHSVG" />Hot-Shot Volley Gun</label></li>
+    </ul>
+    <li><label><input type="checkbox" name="stoic" value="stoic" />Stoic</label></li>
+    <li><label><input type="checkbox" name="stormOfDeath" value="stormOfDeath" />Storm Of Death</label></li>
+
+    <li><label><input type="checkbox" name="supplicant" value="supplicant" />Supplicant</label></li>
+    <li><label><input type="checkbox" name="supremePresence" value="supremePresence" />Supreme Presence</label></li>
+    <ul class="talents">
+        <li><label><input type="checkbox" name="spAth" value="spAth" />Athletics</label></li>
+        <li><label><input type="checkbox" name="spDec" value="spDec" />Deception</label></li>
+        <li><label><input type="checkbox" name="spInt" value="spInt" />Intimidation</label></li>
+        <li><label><input type="checkbox" name="spPer" value="spPer" />Perusasion</label></li>
+        <li><label><input type="checkbox" name="spTech" value="spTech" />Tech</label></li>
+    </ul>
+    <li><label><input type="checkbox" name="tenacious" value="tenacious" />Tenacious</label></li>
+    <li><label><input type="checkbox" name="theFleshIsWeak" value="theFleshIsWeak" />The Flesh Is Weak</label></li>
+    <li><label><input type="checkbox" name="touchedByFate" value="touchedByFate" />Touched By Fate</label></li>
+    <li><label><input type="checkbox" name="trademarkWeapon" value="trademarkWeapon" />Trademark Weapon</label></li>
+    <li><label><input type="checkbox" name="transhuman" value="transhuman" />Transhuman</label></li>
+    <li><label><input type="checkbox" name="twinFocus" value="twinFocus" />Twin Focus</label></li>
+    <li><label><input type="checkbox" name="uncannyTrait" value="uncanny" />Uncanny Trait</label></li>
+    <li><label><input type="checkbox" name="unnaturalSkill" value="unnatural" />Unnatural Skill</label></li>
+    <li><label><input type="checkbox" name="unremarkable" value="unremarkable" />Unremarkable</label></li>
+    <li><label><input type="checkbox" name="warpedMind" value="warpedMind" />Warped Mind</label></li>    
+</ul>
+
+<script src="script.js"></script>
+</body>
+</html>
