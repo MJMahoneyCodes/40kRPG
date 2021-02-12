@@ -2,9 +2,11 @@
 //add more comments everywhere
 //talents - requirements checks
 //wealth and equipment
+//fix calculateExperience function to remove the god-awful IFs
 
 var button = document.getElementById("addKeyword");
-var deleteButton = document.getElementsByClassName("delete");
+button.addEventListener("click", addKeyword); //adds the click function, which runs addKeyword
+
 var keywordArray = []; //this will eventually hold all the character's keywords, like IMPERIUM or CHAOS
 
 function addKeyword(){ 
@@ -35,19 +37,29 @@ function addKeyword(){
 
 //deleteButton is a collection of HTML elements, so I had
 //to turn it into an array to use forEach
+//I have to do this to add the click functionality to the newly created keyword item delete buttons
 function enableDeleteButtons(){
-    Array.from(deleteButton).forEach (button => {
+    var deleteButton = document.getElementsByClassName("delete"); //finds all the delete buttons (they have class "delete")
+    Array.from(deleteButton).forEach (button => { //makes the array, loops through buttons, adding click events
     button.addEventListener("click", function(){
+        //removes the current keyword value from the keywords array
         const newArr = keywordArray.filter(e => e !== button.parentNode.firstChild.textContent);
-        keywordArray = newArr;
-        button.parentNode.remove();
+        keywordArray = newArr; //updates keywordArray with new values (entry removed)
+        button.parentNode.remove(); //deletes the li that was created when the keyword was added
         console.log("Current keywords are: " + keywordArray);
     })    
     })
 }
 
-button.addEventListener("click", addKeyword);
-
+//minimum Rating of 1 for each attribute
+//Attribute maximums are defined by species (Ork, Primaris, Human, etc.)
+//12 is the maximum attribute for any species
+//A lot of this function is validation of ratings by species
+//Calculation of attribute total is done at the end
+//
+//When calling this, you pass in one of the attributes, such as "strength" or "toughness"
+//The HTML id's of these elements follow the pattern "attributeRating" or "attributeBonus"
+//such as "strengthRating" or "agilityBonus"
 function calculateAttributeTotal(item){
     if (isNaN(document.getElementById(item+"Rating").value)) {
         document.getElementById(item+"Rating").value = 1;
@@ -192,12 +204,16 @@ function calculateAttributeTotal(item){
         }
     }
 
+    //no rating for any species can be greater than 12
     if (Number(document.getElementById(item+"Rating").value) > 12) {
         document.getElementById(item+"Rating").value = 12;
         alert(item[0].toUpperCase() + item.substring(1) + " Rating has a maximum value of 12.")
     }
 
+    //this is the actual attribute calculation
+    //adds the value in Rating to value of Bonus to return value of Total
     document.getElementById(item+"Total").textContent = Number(document.getElementById(item+"Rating").value) + Number(document.getElementById(item+"Bonus").value);
+
 
     setSkillBase();
 
@@ -218,6 +234,9 @@ function calculateSkillTotal(skill){
 }
 
 //this completely recalculates all experience each time it's called
+//Adding to attribute ratings, skill ratings, and talents all affect experience cost
+//Selecting a species will set the minimum attribute ratings, and also affect experience cost
+//There's got to be a better way than using the IF blocks for each attribute and skill
 function calculateExperience(){
     var experience = 0;
     var strength = Number(document.getElementById("strengthRating").value);
@@ -1296,6 +1315,8 @@ function setMaxExperience(tier){
     document.getElementById("maxExperience").textContent = Number(tier)*100 + " maximum experience";
 }
 
+//Selecting a species will set the minimum attribute ratings
+//It will also calculate the experience cost of selecting the species
 function setAttributes(species){
     if (species == "human") {
         strength = document.getElementById("strengthRating").value = 1;
@@ -1350,6 +1371,8 @@ function setAttributes(species){
     calculateExperience();
 }
 
+//The base attribute value of a skill comes from the total value of the attribute (rating + bonus of the attribute)
+//This should be called whenever attributes are updated
 function setSkillBase(){
     document.getElementById("athleticsBase").textContent = document.getElementById("strengthTotal").textContent;
     document.getElementById("awarenessBase").textContent = document.getElementById("intellectTotal").textContent;
