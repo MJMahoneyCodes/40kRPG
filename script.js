@@ -1,40 +1,35 @@
 //TODO
-//keywords: adding, deleting, getting a list of them (to check talent requirements)
+//add more comments everywhere
 //talents - requirements checks
 //wealth and equipment
 
 var button = document.getElementById("addKeyword");
 var deleteButton = document.getElementsByClassName("delete");
+var keywordArray = []; //this will eventually hold all the character's keywords, like IMPERIUM or CHAOS
 
-function addKeyword(){
-    var ul = document.getElementById("keywords");
-    var li = document.createElement("li");
-    var input = document.getElementById("keywordInput");
-    var newButton = document.createElement("button");
-    var typedKeyword = input.value;
-    var upperKeyword = typedKeyword.toUpperCase();
+function addKeyword(){ 
+    var ul = document.getElementById("keywords"); //finds the empty ul element (that will later hold keywords)
+    var li = document.createElement("li"); //give me a new li, to later add to the ul
+    var input = document.getElementById("keywordInput"); //find the "enter keyword" text box
+    var newButton = document.createElement("button"); //this will be the delete button added to new keyword value
+    var typedKeyword = input.value; //get the value from the "enter keyword" text box
+    var upperKeyword = typedKeyword.toUpperCase(); //make the entered value upper case
     
-    li.appendChild(document.createTextNode(upperKeyword));
-    ul.appendChild(li);
-    li.classList.add("keywords");
-    input.value = ""; 
-    newButton.classList.add("delete");
-    newButton.innerHTML ="Delete";
-    li.appendChild(newButton);
-    enableDeleteButtons();
-}
+    if (input.value =="") {
+        console.log("Keyword was blank, didn't add it.");
+    } else {
+        li.appendChild(document.createTextNode(upperKeyword)); //adds the text of the keyword to the li
+        ul.appendChild(li); //adds the new li, with text, to the ul
+        keywordArray.push(li.firstChild.textContent); //adds the value to the keyword array
+        //li.classList.add("keywords"); //adds the class for finding later, don't think I need this, actually
+        input.value = ""; //blanks out the "Enter keyword" text box
+        newButton.classList.add("delete"); //adds the "delete" class to the delete buttons
+                                           //so that I can find them later to enable them
+        newButton.innerHTML ="Delete"; //adds the text "Delete" to the button
+        li.appendChild(newButton); //puts a "Delete" button next to the newly added keyword
+        enableDeleteButtons(); //this finds all the delete buttons and makes them function on a click
 
-//this doesn't work
-//it displays (example)
-//TEST<button class="delete">Delete</button>
-//textContent displays: TESTDelete
-//I just want the "TEST" part (after adding a keyword TEST)
-function createArrayFromKeywords(){
-    var keywordList = document.getElementsByClassName("keywords");
-    var keywordArray = Array.from(keywordList);
-    
-    for (let i = 0; i < keywordArray.length; i++) {
-        console.log(keywordArray[i].innerHTML);
+        console.log("Current keywords are: " + keywordArray);
     }
 }
 
@@ -43,7 +38,10 @@ function createArrayFromKeywords(){
 function enableDeleteButtons(){
     Array.from(deleteButton).forEach (button => {
     button.addEventListener("click", function(){
+        const newArr = keywordArray.filter(e => e !== button.parentNode.firstChild.textContent);
+        keywordArray = newArr;
         button.parentNode.remove();
+        console.log("Current keywords are: " + keywordArray);
     })    
     })
 }
