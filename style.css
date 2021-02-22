@@ -70,6 +70,8 @@ table.attributeTable {
 }
 
 .talents {
-  columns: 4 8em;
-  list-style-type: none;
+  display: flex;
+  flex-flow: row wrap;
+  list-style: none;
+  justify-content: space-evenly;
 }

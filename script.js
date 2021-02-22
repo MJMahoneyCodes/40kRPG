@@ -246,7 +246,9 @@ function calculateExperience(){
     var willpower = Number(document.getElementById("willpowerRating").value);
     var intellect = Number(document.getElementById("intellectRating").value);
     var fellowship = Number(document.getElementById("fellowshipRating").value);
-
+    //this doesn't work
+    //var attributeArray = [strength,toughness,agility,initiative,willpower,intellect,fellowship];
+    
     var strengthXP = 0;
     var toughnessXP = 0;
     var agilityXP = 0;
@@ -254,6 +256,9 @@ function calculateExperience(){
     var willpowerXP = 0;
     var intellectXP = 0;
     var fellowshipXP = 0;
+    //this doesn't work
+    //var attributeXPArray = [strengthXP,toughnessXP,agilityXP,initiativeXP,
+    //    willpowerXP,intellectXP,fellowshipXP];
 
     var athletics = Number(document.getElementById("athleticsRating").value);
     var awareness = Number(document.getElementById("awarenessRating").value);
@@ -295,6 +300,40 @@ function calculateExperience(){
 
     //I don't like all these if statements, but I can't find the pattern
     //of how an attribute rating relates to an XP cost.
+
+    // for (i = 0; i < attributeArray.length; i++) {
+        
+    //     if (attributeArray[i] == 1) {
+    //         attributeXPArray[i] = 0;
+    //     } else if (attributeArray[i] == 2) {
+    //         attributeXPArray[i] = 4;
+    //     } else if (attributeArray[i] == 3) {
+    //         attributeXPArray[i] = 10;
+    //     } else if (attributeArray[i] == 4) {
+    //         attributeXPArray[i] = 20;
+    //     } else if (attributeArray[i] == 5) {
+    //         attributeXPArray[i] = 35;
+    //     } else if (attributeArray[i] == 6) {
+    //         attributeXPArray[i] = 55;
+    //     } else if (attributeArray[i] == 7) {
+    //         attributeXPArray[i] = 80;
+    //     } else if (attributeArray[i] == 8) {
+    //         attributeXPArray[i] = 110;
+    //     } else if (attributeArray[i] == 9) {
+    //         attributeXPArray[i] = 145;
+    //     } else if (attributeArray[i] == 10) {
+    //         attributeXPArray[i] = 185;
+    //     } else if (attributeArray[i] == 11) {
+    //         attributeXPArray[i] = 230;
+    //     } else if (attributeArray[i] == 12) {
+    //         attributeXPArray[i] = 280;
+    //     } else {
+    //         attributeXPArray[i] = 0;
+    //     }
+    // }
+
+    
+
 
     if (strength == 1) {
         strengthXP = 0;
@@ -1213,6 +1252,7 @@ function calculateExperience(){
     treeOfLearningCheck();
 
     document.getElementById("experienceUsed").textContent = experience + " experience used";
+
 }
 
 function treeOfLearningCheck(){
@@ -1300,14 +1340,18 @@ function treeOfLearningCheck(){
     }
 
     if (highestSkill > numberOfSkills) {
-        document.getElementById("treeOfLearning").innerHTML = "INVALID <span class='tooltiptext'>You must have a rating of at least 1 in as many skills as your highest skill rating.</span>";
+        //document.getElementById("treeOfLearning").innerHTML = "INVALID <span class='tooltiptext'>You must have a rating of at least 1 in as many skills as your highest skill rating.</span>";
+        document.getElementById("treeOfLearning").textContent = "INVALID - You must have at least rating 1 in as many skills as your highest rating";
         document.getElementById("treeOfLearning").classList.remove("valid");
         document.getElementById("treeOfLearning").classList.add("invalid");
     } else {
-        document.getElementById("treeOfLearning").innerHTML = "VALID <span class='tooltiptext'>You must have a rating of at least 1 in as many skills as your highest skill rating.</span>";
+        //document.getElementById("treeOfLearning").innerHTML = "VALID <span class='tooltiptext'>You must have a rating of at least 1 in as many skills as your highest skill rating.</span>";
+        document.getElementById("treeOfLearning").textContent = "VALID";
         document.getElementById("treeOfLearning").classList.remove("invalid");
         document.getElementById("treeOfLearning").classList.add("valid");
     }
+
+    console.log("Tree of Learning check performed.");
 
 }
 
