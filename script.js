@@ -1,6 +1,9 @@
 //TODO
 //add more comments everywhere
 //talents - requirements checks
+////I found that jquery .hide() function would be good for
+////not showing talents that you don't have the keyword or
+////requirements for
 //wealth and equipment
 //fix calculateExperience function to remove the god-awful IFs
 
