@@ -1,9 +1,6 @@
 //TODO
 //add more comments everywhere
 //talents - requirements checks
-////I found that jquery .hide() function would be good for
-////not showing talents that you don't have the keyword or
-////requirements for
 //wealth and equipment
 //fix calculateExperience function to remove the god-awful IFs
 
@@ -76,6 +73,7 @@ function calculateAttributeTotal(item){
         return;
     }
     
+    //Human race ability maximum checks
     if (document.getElementById("species").value == "human") {
         if (document.getElementById(item+"Rating").value > 8) {
             document.getElementById(item+"Rating").value = 8;
@@ -83,6 +81,7 @@ function calculateAttributeTotal(item){
         }
     }
 
+    //Ork racial ability maximum checks
     if (document.getElementById("species").value == "ork") {
         if (document.getElementById("strengthRating").value > 12) {
             document.getElementById("strengthRating").value = 12;
@@ -114,6 +113,7 @@ function calculateAttributeTotal(item){
         }
     }
 
+    //Aeldar ability race maximum checks
     if (document.getElementById("species").value == "aeldari") {
         if (document.getElementById("strengthRating").value > 7) {
             document.getElementById("strengthRating").value = 7;
@@ -145,6 +145,7 @@ function calculateAttributeTotal(item){
         }
     }
 
+    //Adeptus race ability maximum checks
     if (document.getElementById("species").value == "adeptus") {
         if (document.getElementById("strengthRating").value > 10) {
             document.getElementById("strengthRating").value = 10;
@@ -176,6 +177,7 @@ function calculateAttributeTotal(item){
         }
     }
 
+    //Primaris race maximum ability checks
     if (document.getElementById("species").value == "primaris") {
         if (document.getElementById("strengthRating").value > 12) {
             document.getElementById("strengthRating").value = 12;
@@ -215,9 +217,10 @@ function calculateAttributeTotal(item){
 
     //this is the actual attribute calculation
     //adds the value in Rating to value of Bonus to return value of Total
-    document.getElementById(item+"Total").textContent = Number(document.getElementById(item+"Rating").value) + Number(document.getElementById(item+"Bonus").value);
+    document.getElementById(item+"Total").textContent = Number(document.getElementById(item+"Rating").value) + 
+    Number(document.getElementById(item+"Bonus").value);
 
-
+    
     setSkillBase();
 
     calculateExperience();
