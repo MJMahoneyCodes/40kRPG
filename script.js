@@ -1471,3 +1471,32 @@ document.querySelector('#talents').onclick = function(ev) {
     calculateExperience();
 }
 
+//GitHub co-pilot wrote this: 
+function caculateDaysBetweenDates() { //I typed this line, it added the rest of the function
+    var start = new Date(document.getElementById("startDate").value); //co-pilot typed this line
+    var end = new Date(document.getElementById("endDate").value); //co-pilot typed this line
+    var days = (end - start) / (1000 * 60 * 60 * 24); //co-pilot typed this line
+    document.getElementById("daysBetweenDates").textContent = days; //co-pilot typed this line
+} //co-pilot typed this line
+
+//unit test the function setSkillBase() 
+//another co-pilot function
+function testSetSkillBase() {
+    console.log("Testing setSkillBase()");
+    document.getElementById("strengthRating").value = 5;
+    document.getElementById("toughnessRating").value = 5;
+    document.getElementById("agilityRating").value = 4;
+    document.getElementById("initiativeRating").value = 4;
+    document.getElementById("willpowerRating").value = 3;
+    document.getElementById("intellectRating").value = 3;
+    document.getElementById("fellowshipRating").value = 1;
+    setSkillBase();
+    console.log("strengthBase: " + document.getElementById("strengthBase").textContent);
+    console.log("toughnessBase: " + document.getElementById("toughnessBase").textContent);
+    console.log("agilityBase: " + document.getElementById("agilityBase").textContent);
+    console.log("initiativeBase: " + document.getElementById("initiativeBase").textContent);
+    console.log("willpowerBase: " + document.getElementById("willpowerBase").textContent);
+    console.log("intellectBase: " + document.getElementById("intellectBase").textContent);
+    console.log("fellowshipBase: " + document.getElementById("fellowshipBase").textContent);
+}
+
